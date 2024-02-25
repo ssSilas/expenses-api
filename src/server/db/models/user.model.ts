@@ -7,9 +7,9 @@ import {
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
-import { configEnv } from "../../../config/enviroments";
 import { createHash } from "crypto";
 import { ExpenseModel } from "./expense.model";
+import { configEnv } from "../../../config/env.config";
 
 @Table({
   tableName: "user",
@@ -49,12 +49,12 @@ export class UserModel extends Model {
   // Adicione um hook antes de salvar
   @BeforeSave
   static async hashPassword(instance: UserModel) {
-    if (instance.changed("password")) {
+    if (!instance.dataValues.userId || instance.changed("password")) {
       const salt = configEnv.salt;
       const password = instance.getDataValue("password");
       const passSalt = password + salt;
       const encrypted = createHash("sha1").update(passSalt).digest("hex");
-      instance.password = encrypted;
+      instance.dataValues.password = encrypted;
     }
   }
 }

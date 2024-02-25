@@ -1,5 +1,5 @@
-import { configEnv } from "config/enviroments";
 import { createHash } from "crypto";
+import { configEnv } from "../../config/env.config";
 
 export function hashingPassword(password: string): string {
   const salt = configEnv.salt;

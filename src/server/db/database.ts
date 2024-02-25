@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 import { UserModel } from "./models/user.model";
 import { ExpenseModel } from "./models/expense.model";
-import { configEnv } from "src/config/enviroments";
+import { configEnv } from "../../config/env.config";
 
 const isDev = configEnv.nodeEnv == "";
 const dbInitAndSync = async () => {

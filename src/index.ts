@@ -5,7 +5,7 @@ import { Router, Request, Response } from "express";
 import dbInitAndSync from "./server/db/database";
 import auth_router from "./server/routes/auth.route";
 import createHttpError from "http-errors";
-import { configEnv } from "./config/enviroments";
+import { configEnv } from "./config/env.config";
 
 const app = express();
 const route = Router();
@@ -25,6 +25,6 @@ app.use(function (req, res, next) {
 
 const port = configEnv.portApp;
 app.listen(port, () => {
-  console.log(`Running on port: ${port}`);
+  console.log(` \n ==== Running on port: http://127.0.0.1:${port}  ==== \n`);
   dbInitAndSync();
 });

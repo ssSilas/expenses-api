@@ -1,4 +1,4 @@
-import { configEnv } from "config/enviroments";
+import { configEnv } from "../../config/env.config";
 import { UserModel } from "../db/models/user.model";
 import { hashingPassword } from "../utils/util";
 import * as jwt from "jsonwebtoken";
@@ -6,8 +6,9 @@ import * as jwt from "jsonwebtoken";
 export class AuthService {
   async create(user: any): Promise<boolean> {
     try {
-      await this.findUserByEmail(user.email);
+      await this.userExist(user.email);
       await UserModel.create(user);
+
       return true;
     } catch (error) {
       throw error;
@@ -17,26 +18,41 @@ export class AuthService {
   async login(user: any) {
     try {
       const findUser = await this.findUserByEmail(user.email);
+      console.log(findUser);
+      console.log(findUser.password);
       this.checkPassword(findUser.password, user.password);
 
       const token = this.generateToken(findUser.id, findUser.email);
-      return token;
+      return { token };
     } catch (error) {
       throw error;
     }
   }
 
-  private findUserByEmail(email: string) {
+  private async findUserByEmail(email: string) {
     try {
-      const user = UserModel.findOne({
-        attributes: ["id", "email", "password"],
+      const user = await UserModel.findOne({
+        raw: true,
+        attributes: ["userId", "email", "password"],
         where: { email },
       });
 
       if (!user) {
-        throw new Error("Name of user is not correct");
+        throw new Error("User not exist.");
       }
       return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  private async userExist(email: string) {
+    try {
+      const user = await UserModel.findOne({ where: { email } });
+      if (user) {
+        throw new Error("User already exist. :(");
+      }
+      return true;
     } catch (error) {
       throw error;
     }

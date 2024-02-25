@@ -3,10 +3,16 @@ import { AuthController } from "../controllers/auth.controller";
 import { AuthService } from "../service/auth.service";
 
 const authService = new AuthService();
-const instanceAuthClass = new AuthController(authService);
+const AuthControllerInstance = new AuthController(authService);
 
 const auth_router = Router();
-auth_router.post("/login", instanceAuthClass.login);
-auth_router.post("/register", instanceAuthClass.create);
+auth_router.post(
+  "/login",
+  AuthControllerInstance.login.bind(AuthControllerInstance)
+);
+auth_router.post(
+  "/register",
+  AuthControllerInstance.create.bind(AuthControllerInstance)
+);
 
 export default auth_router;
