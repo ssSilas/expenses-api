@@ -1,0 +1,13 @@
+# IDEs
+/.idea
+/.vscode
+*.code-workspace
+
+
+/node_modules
+yarn.lock
+/dist
+
+#StagingDB
+/db/competitions.sqlite
+
