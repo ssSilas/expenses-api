@@ -1,8 +1,10 @@
 import { Router } from "express";
 import { AuthController } from "../controllers/auth.controller";
 import { AuthService } from "../service/auth.service";
+import { JwtService } from "../service/jwt.service";
 
-const authService = new AuthService();
+const jwtService = new JwtService();
+const authService = new AuthService(jwtService);
 const AuthControllerInstance = new AuthController(authService);
 
 const auth_router = Router();

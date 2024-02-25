@@ -9,7 +9,7 @@ import {
 import { UserModel } from "./user.model";
 
 @Table({
-  tableName: "expenses",
+  tableName: "expense",
   freezeTableName: true,
   timestamps: true,
 })
@@ -28,7 +28,7 @@ export class ExpenseModel extends Model {
 
   @Column({
     allowNull: false,
-    type: DataType.DECIMAL,
+    type: DataType.DECIMAL(10, 2),
   })
   price: number;
 
@@ -37,7 +37,7 @@ export class ExpenseModel extends Model {
     allowNull: false,
     type: DataType.INTEGER,
   })
-  userId: number;
+  userfk: number;
 
   @BelongsTo(() => UserModel)
   user: UserModel;

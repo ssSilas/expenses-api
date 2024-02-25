@@ -7,3 +7,15 @@ export function hashingPassword(password: string): string {
   const encrypted = createHash("sha1").update(passSalt).digest("hex");
   return encrypted;
 }
+
+export function checkAndParseId(id: any) {
+  try {
+    const check = typeof id === "string" ? parseInt(id) : NaN;
+    if (isNaN(check)) {
+      throw new Error("Invalid id");
+    }
+    return check;
+  } catch (error) {
+    throw error;
+  }
+}

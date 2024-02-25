@@ -17,14 +17,6 @@ import { configEnv } from "../../../config/env.config";
   timestamps: true,
 })
 export class UserModel extends Model {
-  @PrimaryKey
-  @Column({
-    allowNull: false,
-    autoIncrement: true,
-    type: DataType.INTEGER,
-  })
-  userId: number;
-
   @Column({
     allowNull: false,
     type: DataType.STRING,
@@ -49,7 +41,7 @@ export class UserModel extends Model {
   // Adicione um hook antes de salvar
   @BeforeSave
   static async hashPassword(instance: UserModel) {
-    if (!instance.dataValues.userId || instance.changed("password")) {
+    if (!instance.dataValues.id || instance.changed("password")) {
       const salt = configEnv.salt;
       const password = instance.getDataValue("password");
       const passSalt = password + salt;

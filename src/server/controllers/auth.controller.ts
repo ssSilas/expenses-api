@@ -18,7 +18,7 @@ export class AuthController {
   async create(req: Request, res: Response) {
     try {
       await this.authService.create(req.body);
-      res.status(200).send({ sucess: "Inserted successfully" });
+      res.status(201).send({ sucess: "Inserted successfully" });
     } catch (error) {
       console.log(error);
       return res.status(500).send(getErrorMessage(error));

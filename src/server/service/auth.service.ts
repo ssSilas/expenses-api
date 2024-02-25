@@ -1,9 +1,8 @@
-import { configEnv } from "../../config/env.config";
 import { UserModel } from "../db/models/user.model";
-import { hashingPassword } from "../utils/util";
-import * as jwt from "jsonwebtoken";
+import { JwtService } from "./jwt.service";
 
 export class AuthService {
+  constructor(private readonly jwtService: JwtService) {}
   async create(user: any): Promise<boolean> {
     try {
       await this.userExist(user.email);
@@ -20,9 +19,9 @@ export class AuthService {
       const findUser = await this.findUserByEmail(user.email);
       console.log(findUser);
       console.log(findUser.password);
-      this.checkPassword(findUser.password, user.password);
+      this.jwtService.checkPassword(findUser.password, user.password);
 
-      const token = this.generateToken(findUser.id, findUser.email);
+      const token = this.jwtService.generateToken(findUser.id, findUser.email);
       return { token };
     } catch (error) {
       throw error;
@@ -33,7 +32,7 @@ export class AuthService {
     try {
       const user = await UserModel.findOne({
         raw: true,
-        attributes: ["userId", "email", "password"],
+        attributes: ["id", "email", "password"],
         where: { email },
       });
 
@@ -56,23 +55,5 @@ export class AuthService {
     } catch (error) {
       throw error;
     }
-  }
-
-  private checkPassword(hashedPass: string, rawPass: string) {
-    const hashRaw = hashingPassword(rawPass);
-    const check = hashRaw === hashedPass;
-
-    if (!check) {
-      throw new Error("Password is not correct");
-    }
-    return true;
-  }
-
-  private generateToken(userId: number, email: string) {
-    const payload = { userId, email };
-    const secretKey = configEnv.secret;
-    const tokexExpires = configEnv.expireToken;
-    const token = jwt.sign(payload, secretKey, { expiresIn: tokexExpires });
-    return token;
   }
 }

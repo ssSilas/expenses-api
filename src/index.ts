@@ -6,6 +6,7 @@ import dbInitAndSync from "./server/db/database";
 import auth_router from "./server/routes/auth.route";
 import createHttpError from "http-errors";
 import { configEnv } from "./config/env.config";
+import expense_router from "./server/routes/expenses.route";
 
 const app = express();
 const route = Router();
@@ -18,6 +19,7 @@ route.get("/", (req: Request, res: Response) => {
 
 app.use(route);
 app.use("/auth", auth_router);
+app.use("/expense", expense_router);
 
 app.use(function (req, res, next) {
   next(createHttpError(404));
