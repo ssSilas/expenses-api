@@ -86,7 +86,7 @@ Aqui está a explicação de cada variável:
 - Com o Docker e o Docker Compose já instalados, execute o seguinte comando:
 
 ```bash
-  sudo docker-compose ups
+  sudo docker-compose up
 ```
 
 Este comando irá construir e iniciar os contêineres conforme definido no arquivo docker-compose.yml. O parâmetro -d executa os contêineres em segundo plano.
