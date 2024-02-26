@@ -19,3 +19,8 @@ export function checkAndParseId(id: any) {
     throw error;
   }
 }
+
+export function isFutureDate(date: Date): boolean {
+  const currentDate = new Date();
+  return date > currentDate;
+}

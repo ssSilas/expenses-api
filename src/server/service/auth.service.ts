@@ -1,12 +1,13 @@
 import { UserModel } from "../db/models/user.model";
+import { CreateUser, LoginData } from "../interface/auth.interface";
 import { JwtService } from "./jwt.service";
 
 export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
-  async create(user: any): Promise<boolean> {
+  async create(user: CreateUser): Promise<boolean> {
     try {
       await this.userExist(user.email);
-      await UserModel.create(user);
+      await UserModel.create({ ...user });
 
       return true;
     } catch (error) {
@@ -14,11 +15,9 @@ export class AuthService {
     }
   }
 
-  async login(user: any) {
+  async login(user: LoginData): Promise<{ token: string }> {
     try {
       const findUser = await this.findUserByEmail(user.email);
-      console.log(findUser);
-      console.log(findUser.password);
       this.jwtService.checkPassword(findUser.password, user.password);
 
       const token = this.jwtService.generateToken(findUser.id, findUser.email);
@@ -28,7 +27,7 @@ export class AuthService {
     }
   }
 
-  private async findUserByEmail(email: string) {
+  private async findUserByEmail(email: string): Promise<UserModel> {
     try {
       const user = await UserModel.findOne({
         raw: true,
@@ -45,7 +44,7 @@ export class AuthService {
     }
   }
 
-  private async userExist(email: string) {
+  private async userExist(email: string): Promise<boolean> {
     try {
       const user = await UserModel.findOne({ where: { email } });
       if (user) {

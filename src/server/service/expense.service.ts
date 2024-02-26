@@ -1,16 +1,17 @@
 import { ExpenseModel } from "../db/models/expense.model";
+import { ExpenseData } from "../interface/expense.interface";
 
 export class ExpenseService {
-  async getAll(userId: number) {
+  async getAll(userId: number): Promise<ExpenseModel[]> {
     return await ExpenseModel.findAll({ where: { id: userId } });
   }
 
-  async getById(id: number, userId: number) {
+  async getById(id: number, userId: number): Promise<ExpenseModel> {
     await this.expenseExistsAndBelongs(id, userId);
     return await ExpenseModel.findOne({ where: { id } });
   }
 
-  async create(userId: number, data: any): Promise<boolean> {
+  async create(userId: number, data: ExpenseData): Promise<boolean> {
     try {
       await ExpenseModel.create({ userfk: userId, ...data });
       return true;
@@ -19,7 +20,11 @@ export class ExpenseService {
     }
   }
 
-  async update(id: number, userId: number, data: any): Promise<boolean> {
+  async update(
+    id: number,
+    userId: number,
+    data: ExpenseData
+  ): Promise<boolean> {
     try {
       await this.expenseExistsAndBelongs(id, userId);
       await ExpenseModel.update({ ...data }, { where: { id } });
@@ -39,9 +44,14 @@ export class ExpenseService {
     }
   }
 
-  private async expenseExistsAndBelongs(id: number, userId: number) {
+  private async expenseExistsAndBelongs(
+    id: number,
+    userId: number
+  ): Promise<boolean> {
     try {
-      const expense = await ExpenseModel.findOne({ where: { id } });
+      const expense = await ExpenseModel.findOne({
+        where: { id, userfk: userId },
+      });
       if (!expense) {
         throw new Error(
           "Expense does not exist or does not belong to the user. :("
