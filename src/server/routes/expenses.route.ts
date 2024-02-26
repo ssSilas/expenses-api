@@ -2,12 +2,17 @@ import { Router } from "express";
 import { ExpenseService } from "../service/expense.service";
 import { ExpenseController } from "../controllers/expense.controller";
 import { AuthMiddleware } from "../../middleware/auth.middleware";
+import { MailService } from "../service/mail.service";
 
 const authMiddleware = new AuthMiddleware();
 const checkToken = authMiddleware.checkToken;
 
 const expenseService = new ExpenseService();
-const ExpenseControllerInstance = new ExpenseController(expenseService);
+const mailService = new MailService();
+const ExpenseControllerInstance = new ExpenseController(
+  expenseService,
+  mailService
+);
 
 const expense_router = Router();
 

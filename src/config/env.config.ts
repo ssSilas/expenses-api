@@ -15,6 +15,11 @@ class SetEnv {
   secret: string;
   expireToken: string;
 
+  smtpHost: string;
+  smtpPort: string;
+  smtpUser: string;
+  smtpPass: string;
+
   constructor() {
     dotenv.config();
     this.setVariable();
@@ -37,6 +42,12 @@ class SetEnv {
     this.salt = process.env.PASS_SALT || "";
     this.secret = process.env.SECRET_KEY || "";
     this.expireToken = process.env.DURATION_TOKEN || "";
+
+    //MAIL
+    this.smtpHost = process.env.SMTP_HOST || "";
+    this.smtpPort = process.env.SMTP_PORT || "";
+    this.smtpUser = process.env.SMTP_USERNAME || "";
+    this.smtpPass = process.env.SMTP_PASSWORD || "";
   }
 }
 

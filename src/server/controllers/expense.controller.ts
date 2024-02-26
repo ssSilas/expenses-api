@@ -4,9 +4,13 @@ import { ExpenseService } from "../service/expense.service";
 import { CustomRequest } from "src/middleware/auth.middleware";
 import { checkAndParseId, isFutureDate } from "../utils/util";
 import { ExpenseData } from "../interface/expense.interface";
+import { MailService } from "../service/mail.service";
 
 export class ExpenseController {
-  constructor(private readonly expenseService: ExpenseService) {}
+  constructor(
+    private readonly expenseService: ExpenseService,
+    private readonly mail: MailService
+  ) {}
 
   async getAll(
     req: CustomRequest,
@@ -51,6 +55,14 @@ export class ExpenseController {
       this.validateBodyData(data);
 
       const post = await this.expenseService.create(req.token.id, data);
+
+      //Mail
+      const struture = this.mail.mailStructure(data);
+      const sendMail = this.mail.sendMail(
+        req.token.email,
+        struture.subject,
+        struture.message
+      );
       res.status(200).send(post);
     } catch (error) {
       console.log(error);
@@ -103,8 +115,8 @@ export class ExpenseController {
       const price = values.price;
 
       //check is empty
-      if (date.length || description.length || !price) {
-        throw new Error("Os valores não podem estar vazios.");
+      if (!date.length || !description.length || !price) {
+        throw new Error("Values cannot be empty.");
       }
 
       //check if it is the future date

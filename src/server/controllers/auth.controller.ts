@@ -31,7 +31,7 @@ export class AuthController {
       const data: CreateUser = { name, email, password };
 
       await this.authService.create(data);
-      res.status(201).send({ sucess: "Inserted successfully" });
+      res.status(201).send(true);
     } catch (error) {
       console.log(error);
       return res.status(500).send(getErrorMessage(error));

@@ -12,19 +12,21 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "http-status-codes": "^2.3.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.1",
+    "nodemailer": "^6.9.10",
     "reflect-metadata": "^0.2.1",
     "sequelize": "^6.6.5",
     "sequelize-typescript": "^2.1.6",
-    "ts-node": "^10.9.2",
-    "http-errors": "~1.6.3",
-    "http-status-codes": "^2.3.0"
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20.11.20",
+    "@types/nodemailer": "^6.4.14",
     "@types/validator": "^13.11.9",
     "nodemon": "^2.0.22",
     "ts-node-dev": "^2.0.0",
