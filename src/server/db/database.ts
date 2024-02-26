@@ -3,7 +3,7 @@ import { UserModel } from "./models/user.model";
 import { ExpenseModel } from "./models/expense.model";
 import { configEnv } from "../../config/env.config";
 
-const isDev = configEnv.nodeEnv == "";
+const isDev = configEnv.nodeEnv === "dev"
 const dbInitAndSync = async () => {
   const sequelize = new Sequelize({
     dialect: "mysql",

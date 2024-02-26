@@ -1,9 +1,7 @@
-FROM node:18
-WORKDIR /app
+FROM node:alpine
 
-COPY package.json yarn.lock ./
-RUN yarn install
-COPY . .
+RUN apk add --no-cache bash
 
-EXPOSE 3030
-CMD ["yarn", "dev"]
+USER node
+
+WORKDIR /home/node/app
