@@ -3,7 +3,7 @@ import { ExpenseData } from "../interface/expense.interface";
 
 export class ExpenseService {
   async getAll(userId: number): Promise<ExpenseModel[]> {
-    return await ExpenseModel.findAll({ where: { id: userId } });
+    return await ExpenseModel.findAll({ where: { userfk: userId } });
   }
 
   async getById(id: number, userId: number): Promise<ExpenseModel> {

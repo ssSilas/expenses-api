@@ -8,3 +8,10 @@ export interface CreateUser {
   email: string;
   password: string;
 }
+
+export interface DataUserModel {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+}
