@@ -8,7 +8,7 @@
 
 ### **.ENV**
 
-O arquivo .env.example é um modelo que contém variáveis de ambiente com valores padrão ou de exemplo para configurar o ambiente de desenvolvimento ou produção de um projeto. O arquivo é utilizavel, basta criar conta no Brevo para utilizar os envios de email, conforme [tutorial](https://medium.com/@chiragmehta900/how-to-send-mail-in-node-js-with-nodemailer-in-typescript-889cc46d1437).
+O arquivo .env.example é um modelo que contém variáveis de ambiente com valores padrão ou de exemplo para configurar o ambiente de desenvolvimento ou produção de um projeto. O arquivo é utilizavel, basta criar conta no Brevo e inserir as chaves de acesso para utilizar os envios de email. [Link Brevo](https://app.brevo.com/).
 
 Aqui está a explicação de cada variável:
 

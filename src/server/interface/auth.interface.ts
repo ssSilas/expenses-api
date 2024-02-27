@@ -15,3 +15,9 @@ export interface DataUserModel {
   email: string;
   password: string;
 }
+
+export interface DataUserExist {
+  id?: number;
+  email: string;
+  password: string;
+}

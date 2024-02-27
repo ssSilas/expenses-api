@@ -1,20 +1,13 @@
 import { UserModel } from "../db/models/user.model";
-import { CreateUser, LoginData } from "../interface/auth.interface";
+import {
+  CreateUser,
+  DataUserExist,
+  LoginData,
+} from "../interface/auth.interface";
 import { JwtService } from "./jwt.service";
 
 export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
-  async create(user: CreateUser): Promise<boolean> {
-    try {
-      await this.userExist(user.email);
-      await UserModel.create({ ...user });
-
-      return true;
-    } catch (error) {
-      throw error;
-    }
-  }
-
   async login(user: LoginData): Promise<{ token: string }> {
     try {
       const findUser = await this.findUserByEmail(user.email);
@@ -26,8 +19,18 @@ export class AuthService {
       throw error;
     }
   }
+  async create(user: CreateUser): Promise<boolean> {
+    try {
+      await this.userExist(user.email);
+      await UserModel.create({ ...user });
 
-  private async findUserByEmail(email: string): Promise<UserModel> {
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async findUserByEmail(email: string): Promise<DataUserExist> {
     try {
       const user = await UserModel.findOne({
         raw: true,
@@ -44,11 +47,11 @@ export class AuthService {
     }
   }
 
-  private async userExist(email: string): Promise<boolean> {
+  async userExist(email: string): Promise<boolean> {
     try {
       const user = await UserModel.findOne({ where: { email } });
       if (user) {
-        throw new Error("User already exist. :(");
+        throw new Error("Email is already in use. :(");
       }
       return true;
     } catch (error) {

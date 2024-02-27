@@ -30,7 +30,7 @@ export class ExpenseController {
     res: Response
   ): Promise<Response<any, Record<string, any>>> {
     try {
-      const id = req.body.id;
+      const id = checkAndParseId(req.query.id);
       const get = await this.expenseService.getById(id, req.token.id);
       res.status(200).send(get);
     } catch (error) {
@@ -63,7 +63,7 @@ export class ExpenseController {
         struture.subject,
         struture.message
       );
-      res.status(200).send(post);
+      res.status(201).send(post);
     } catch (error) {
       console.log(error);
       return res.status(500).send(getErrorMessage(error));

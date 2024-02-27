@@ -28,7 +28,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"guimaraessilas15@gmail.com\",\r\n    \"password\":\"testse\"\r\n}",
+							"raw": "{\r\n    \"email\": \"guimaraessislas15@gmail.com\",\r\n    \"password\":\"testse\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -103,17 +103,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/expense?id=1",
+							"raw": "{{API_URL}}/expense/get-by-id?id=2",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"expense"
+								"expense",
+								"get-by-id"
 							],
 							"query": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "2"
 								}
 							]
 						}
@@ -159,7 +160,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"Mensalidade-Faculdade\",\r\n    \"date\": \"2024-03-01\",\r\n    \"price\": 990.45\r\n}",
+							"raw": "{\r\n    \"description\": \"Mensalidade-Faculdade\",\r\n    \"date\": \"2023-03-01\",\r\n    \"price\": 990.45\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -167,7 +168,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/expense?id=1",
+							"raw": "{{API_URL}}/expense?id=2",
 							"host": [
 								"{{API_URL}}"
 							],
@@ -177,7 +178,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "2"
 								}
 							]
 						}
@@ -199,7 +200,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/expense?id=1",
+							"raw": "{{API_URL}}/expense?id=2",
 							"host": [
 								"{{API_URL}}"
 							],
@@ -209,7 +210,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "2"
 								}
 							]
 						}
