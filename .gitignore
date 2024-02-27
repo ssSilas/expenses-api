@@ -7,6 +7,7 @@
 yarn.lock
 /dist
 /.env
+/coverage
 
 #StagingDB
 /db/competitions.sqlite
